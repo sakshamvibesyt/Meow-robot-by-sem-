@@ -502,16 +502,23 @@ async def handle_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE, 
                     await bot.send_message(chat.id, text)
             await bot.leave_chat(chat.id)
             return ""
-        await bot.send_message(
-            EVENT_LOGS,
-            "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>\nAdded by : {} | <code>{}</code>".format(
-                html.escape(chat.title),
-                chat.id,
-                user.first_name if user else "Unknown",
-                user.id if user else "Unknown",
-            ),
-            parse_mode=ParseMode.HTML,
-        )
+        try:
+            await bot.send_message(
+                EVENT_LOGS,
+                "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>\nAdded by : {} | <code>{}</code>".format(
+                    html.escape(chat.title),
+                    chat.id,
+                    user.first_name if user else "Unknown",
+                    user.id if user else "Unknown",
+                ),
+                parse_mode=ParseMode.HTML,
+            )
+        except BadRequest as exc:
+            LOGGER.warning("Could not send new-group log to EVENT_LOGS (%s): %s", EVENT_LOGS, exc)
+        except Exception as exc:
+            # A logging failure must not prevent the bot from welcoming itself
+            # or completing the new-group update.
+            LOGGER.warning("Could not send new-group log to EVENT_LOGS (%s): %s", EVENT_LOGS, exc)
         text = "Watashi ga kita !"
         if msg:
             await msg.reply_text(text)
