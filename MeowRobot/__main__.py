@@ -13,6 +13,7 @@ import time
 import html
 import traceback
 import json
+import os
 from platform import python_version as y
 from sys import argv
 
@@ -53,6 +54,18 @@ from MeowRobot import (
     telethn,
 )
 from MeowRobot.modules import ALL_MODULES
+
+# Change these URLs from Render Environment Variables whenever needed.
+OWNER_PROFILE_URL = os.getenv("OWNER_PROFILE_URL", "https://t.me/Sakshamvenus")
+SUPPORT_GROUP_URL = os.getenv("SUPPORT_GROUP_URL", "")
+if not SUPPORT_GROUP_URL:
+    SUPPORT_GROUP_URL = f"https://t.me/{SUPPORT_CHAT}" if SUPPORT_CHAT else OWNER_PROFILE_URL
+TELETHON_URL = os.getenv("TELETHON_URL", "https://github.com/LonamiWebs/Telethon")
+PYROGRAM_URL = os.getenv("PYROGRAM_URL", "https://github.com/pyrogram/pyrogram")
+PYTHON_TELEGRAM_BOT_URL = os.getenv(
+    "PYTHON_TELEGRAM_BOT_URL",
+    "https://github.com/python-telegram-bot/python-telegram-bot",
+)
 from MeowRobot.modules.helper_funcs.chat_status import is_user_admin
 from MeowRobot.modules.helper_funcs.misc import paginate_modules
 
@@ -105,14 +118,14 @@ def get_buttons():
         ],
         [
             InlineKeyboardButton(text="❄ ᴀʙᴏᴜᴛ ❄", callback_data="MeowRoBot_"),
-            InlineKeyboardButton(text="✨ sᴜᴩᴩᴏʀᴛ ✨", url=f"https://t.me/{SUPPORT_CHAT}"),
+            InlineKeyboardButton(text="✨ sᴜᴩᴩᴏʀᴛ ✨", url=SUPPORT_GROUP_URL),
         ],
         [
             InlineKeyboardButton(text="📢 ᴜᴩᴅᴀᴛᴇs 📢", url=f"https://t.me/{SUPPORT_CHANNEL}"),
             InlineKeyboardButton(text="☁️ sᴏᴜʀᴄᴇ ☁️", callback_data="source_"),
         ],
         [
-            InlineKeyboardButton(text="🥀 ᴅᴇᴠᴇʟᴏᴩᴇʀ 🥀", url=f"tg://user?id={OWNER_ID}"),
+            InlineKeyboardButton(text="🥀 ᴅᴇᴠᴇʟᴏᴩᴇʀ 🥀", url=OWNER_PROFILE_URL),
             InlineKeyboardButton(text="ʜᴇʟᴩ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help_back"),
         ],
     ]
@@ -360,7 +373,7 @@ async def MeowRoBot_about_callback(update: Update, context: ContextTypes.DEFAULT
                     ],
                     [
                         InlineKeyboardButton(
-                            text="ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=f"tg://user?id={OWNER_ID}"
+                            text="ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=OWNER_PROFILE_URL
                         ),
                         InlineKeyboardButton(
                             text="sᴏᴜʀᴄᴇ",
@@ -385,7 +398,7 @@ async def MeowRoBot_about_callback(update: Update, context: ContextTypes.DEFAULT
                 [
                     [
                         InlineKeyboardButton(
-                            text="sᴜᴩᴩᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}"
+                            text="sᴜᴩᴩᴏʀᴛ", url=SUPPORT_GROUP_URL
                         ),
                         InlineKeyboardButton(
                             text="ᴜᴩᴅᴀᴛᴇs", url=f"https://t.me/{SUPPORT_CHANNEL}"
@@ -393,11 +406,11 @@ async def MeowRoBot_about_callback(update: Update, context: ContextTypes.DEFAULT
                     ],
                     [
                         InlineKeyboardButton(
-                            text="ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=f"tg://user?id={OWNER_ID}"
+                            text="ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=OWNER_PROFILE_URL
                         ),
                         InlineKeyboardButton(
-                            text="ɢɪᴛʜᴜʙ",
-                            url="https://github.com/TheAloneTeam/MeowRoBot",
+                            text="ᴏᴡɴᴇʀ ᴘʀᴏғɪʟᴇ",
+                            url=OWNER_PROFILE_URL,
                         ),
                     ],
                     [
@@ -424,23 +437,25 @@ async def Source_about_callback(update: Update, context: ContextTypes.DEFAULT_TY
  ᴛʜɪs ɪs {BOT_NAME},
 ᴀɴ ᴏᴩᴇɴ sᴏᴜʀᴄᴇ ᴛᴇʟᴇɢʀᴀᴍ ɢʀᴏᴜᴩ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ʙᴏᴛ.*
 
-ᴡʀɪᴛᴛᴇɴ ɪɴ ᴩʏᴛʜᴏɴ ᴡɪᴛʜ ᴛʜᴇ ʜᴇʟᴩ ᴏғ : [ᴛᴇʟᴇᴛʜᴏɴ](https://github.com/LonamiWebs/Telethon)
-[ᴩʏʀᴏɢʀᴀᴍ](https://github.com/pyrogram/pyrogram)
-[ᴩʏᴛʜᴏɴ-ᴛᴇʟᴇɢʀᴀᴍ-ʙᴏᴛ](https://github.com/python-telegram-bot/python-telegram-bot)
-ᴀɴᴅ ᴜsɪɴɢ [sǫʟᴀʟᴄʜᴇᴍʏ](https://www.sqlalchemy.org) ᴀɴᴅ [ᴍᴏɴɢᴏ](https://cloud.mongodb.com) ᴀs ᴅᴀᴛᴀʙᴀsᴇ.
+ᴡʀɪᴛᴛᴇɴ ɪɴ ᴩʏᴛʜᴏɴ ᴡɪᴛʜ ᴛʜᴇ ʜᴇʟᴩ ᴏғ:
+[ᴛᴇʟᴇᴛʜᴏɴ]({TELETHON_URL})
+[ᴩʏʀᴏɢʀᴀᴍ]({PYROGRAM_URL})
+[ᴩʏᴛʜᴏɴ-ᴛᴇʟᴇɢʀᴀᴍ-ʙᴏᴛ]({PYTHON_TELEGRAM_BOT_URL})
+ᴀɴᴅ ᴜsɪɴɢ sǫʟᴀʟᴄʜᴇᴍʏ ᴀɴᴅ ᴍᴏɴɢᴏ ᴀs ᴅᴀᴛᴀʙᴀsᴇ.
 
+*ᴍʏ ᴏᴡɴᴇʀ:* [sᴀᴋsʜᴀᴍ ᴠᴇɴᴜs]({OWNER_PROFILE_URL})
 
-*ʜᴇʀᴇ ɪs ᴍʏ sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ :* [ɢɪᴛʜᴜʙ](https://github.com/TheAloneTeam/MeowRoBot)
-
-
-{BOT_NAME} ɪs ʟɪᴄᴇɴsᴇᴅ ᴜɴᴅᴇʀ ᴛʜᴇ [ᴍɪᴛ ʟɪᴄᴇɴsᴇ](https://github.com/TheAloneTeam/MeowRoBot/blob/master/LICENSE).
-© 2022 - 2023 | [sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT}), ᴀʟʟ ʀɪɢʜᴛs ʀᴇsᴇʀᴠᴇᴅ.
+{BOT_NAME} ɪs ʟɪᴄᴇɴsᴇᴅ ᴜɴᴅᴇʀ ᴛʜᴇ ᴍɪᴛ ʟɪᴄᴇɴsᴇ.
+© 2022 - 2023 | ᴀʟʟ ʀɪɢʜᴛs ʀᴇsᴇʀᴠᴇᴅ.
 """
         await edit_message(
             query,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="◁", callback_data="source_back")]]
+                [
+                    [InlineKeyboardButton(text="sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ", url=SUPPORT_GROUP_URL)],
+                    [InlineKeyboardButton(text="◁", callback_data="source_back")],
+                ]
             ),
         )
     elif query.data == "source_back":
