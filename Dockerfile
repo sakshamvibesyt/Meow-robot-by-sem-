@@ -1,16 +1,19 @@
-#
-# Copyright (C) 2021-2022 by TheAloneteam@Github, < https://github.com/TheAloneTeam >.
-# This file is part of < https://github.com/TheAloneTeam/MeowRobot > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TheAloneTeam/MeowRobot/blob/master/LICENSE >
-#
-# All rights reserved.
 
-FROM python:latest
+FROM python:3.11-slim
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y ffmpeg
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN pip3 install -U pip setuptools
-RUN pip3 install -U -r requirements.txt
+WORKDIR /app
 
-CMD ["python3","-m","MeowRobot"]
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip setuptools \
+    && pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python", "-m", "MeowRobot"]
