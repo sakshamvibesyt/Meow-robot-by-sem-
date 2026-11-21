@@ -808,6 +808,7 @@ async def post_init(application: Application):
         await IMPORTED["nɪɢʜᴛ"].start_scheduler()
         
 if __name__ == "__main__":
+    # Start Render HTTP health server before the Telegram bot.
     from MeowRobot.health_server import start_health_server
     start_health_server()
 
