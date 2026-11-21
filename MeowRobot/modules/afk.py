@@ -150,7 +150,7 @@ When marked as AFK, any mentions will be replied to with a message to say you're
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    filters.Regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
+  filters.Regex(r"(?i)^brb(.*)$"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(
     filters.ALL & filters.ChatType.GROUPS, no_longer_afk
