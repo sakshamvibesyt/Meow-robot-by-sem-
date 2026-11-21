@@ -39,7 +39,7 @@ from telegram.ext import (
 from telegram.helpers import escape_markdown
 from telethon import __version__ as tlhver
 import MeowRobot.modules.sql.users_sql as sql
-from MeowRobot.modules.sql import SESSION
+from MeowRobot.modules.sql import SESSION, initialize_tables
 from MeowRobot import (
     LOGGER,
     OWNER_ID,
@@ -808,6 +808,9 @@ async def post_init(application: Application):
         await IMPORTED["nɪɢʜᴛ"].start_scheduler()
         
 if __name__ == "__main__":
+    from MeowRobot.health_server import start_health_server
+    start_health_server()
+
     # Import modules
     for module_name in ALL_MODULES:
         imported_module = importlib.import_module("MeowRobot.modules." + module_name)
@@ -842,6 +845,8 @@ if __name__ == "__main__":
 
         if hasattr(imported_module, "__user_settings__"):
             USER_SETTINGS[imported_module.__mod_name__.lower()] = imported_module
+
+    initialize_tables()
 
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
 
